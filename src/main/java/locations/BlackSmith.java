@@ -1,24 +1,25 @@
 package locations;
 
-/**
- *
- * @author johnkufta
- */
+import java.util.List;
+import java.util.Scanner;
 
-import java.util.*;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import people.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.github.javafaker.Faker;
+import static com.mycompany.dungeon.Time.sleep;
+import static com.mycompany.dungeon.Time.sleepMil;
 import static com.mycompany.dungeon.Typewriter.printSlow;
 
 import item.Item;
 import item.Registries;
+import people.NPC;
+import people.Player;
 
 
 public class BlackSmith extends Location {
     
+    private static final Logger logger = LoggerFactory.getLogger(BlackSmith.class);
     private String name;
     private String description;
     private boolean visited;
@@ -41,7 +42,7 @@ public class BlackSmith extends Location {
 
         int choice = 0;
         
-        printSlow(getGreeting(), 50, false);
+        printSlow(getGreeting(), 70, false);
         
         while (choice != 5)
         {
@@ -67,7 +68,7 @@ public class BlackSmith extends Location {
     
     public int welcome()
     {
-        printSlow("\nWhat can I do for ya?", 30, true);
+        owner.speak("What can I do for ya?", 40);
         printSlow("1) Check what's in stock\n2) Sell items\n3) Check quests\n4) Check the Smithopedia\n5) Leave the shop", 10, true);
                 
         
@@ -94,52 +95,57 @@ public class BlackSmith extends Location {
         else
         {
             this.visited = true;
-            /*
-            this.owner.speak("", 0);
-            printSlow("I dont think I've seen you here before.\n", 40, true);
-            printSlow("LET ME GUESS YOUR NAME!\n", 20, true);
-            printSlow("I'm pretty good with this type of thing.\n", 30, true);
-            try {
-                TimeUnit.SECONDS.sleep(2);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(BlackSmith.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            System.out.println("Unknown" + ":");
+            printSlow("I dont think I've seen you here before.\n", 70, true);
+            sleep(2);
+            printSlow("LET ME GUESS YOUR NAME!\n", 30, true);
+            sleep(1);
+            printSlow("I'm pretty good with this kind of thing.\n", 70, true);
+            sleep(2);
             
-            printSlow("You look like you're called...", 50, true);
+            printSlow("You look like you're called... ", 70, false);
             
-            try 
-            {
-                TimeUnit.SECONDS.sleep(2);
-            } 
-            catch (InterruptedException ex) 
-            {
-                Logger.getLogger(BlackSmith.class.getName()).log(Level.SEVERE, null, ex);
-            }
+           sleep(2);
              
             Faker faker = new Faker();
             String firstName = faker.name().firstName();
             
-            printSlow(firstName.toUpperCase(), 30, true);
+            printSlow(firstName.toUpperCase(), 70, true);
+            System.out.println();
+            sleep(2);
             
             if(firstName.toLowerCase().equals(player.getName().toLowerCase()))
             {
-                printSlow("I GOT IT??", 30, true);
-                printSlow("Well that doesn't normally happen...", 40, true);
-                printSlow("In honor of this magnificent achivement, I want to give you a special gift!", 30, true);
+                printSlow("I GOT IT??", 40, true);
+                sleep(2);
+                printSlow("Well that doesn't normally happen...", 50, true);
+                printSlow("In honor of this magnificent achivement, I want to give you a special gift!", 60, true);
                 
             }
             
             else
             {
-                printSlow("NO???", 30, true);
+                printSlow("NO???", 40, true);
                 
-                printSlow("Your name is " + player.getName() + "?", 50, true);
+                sleep(2);
                 
-                printSlow("Well it's nice to meet you " + player.getName() + "!", 60, true);
+                printSlow("Your name..." , 70, false);
+
+                sleepMil(700);
+
+                printSlow("is " + player.getName() + "?", 70, true);
                 
-                printSlow("Since you're new to town, let me give you a little gift!", 60, true);
+                sleep(3);
+                
+                printSlow("Well it's nice to meet you " + player.getName() + "!", 35, true);
+                
+                sleep(1);
+                
+                printSlow("Since you're new to town, let me give you a little gift!", 50, true);
+
+                sleep(2);
             }
-            */
+            
             switch (player.getBuild())
             {
                 case 0:
@@ -151,10 +157,29 @@ public class BlackSmith extends Location {
                 default:
                     System.out.println("Error with giving item");
             }
-            printSlow("\nI've had that in stock for a while now,\nhopefully it can help you as you get your bearings around here. \nANYWAYS!\n", 60, true);
+
+            sleep(2);
+
+            printSlow("\nI've had that in stock for a while now,\nhopefully it can help you as you get your bearings around here.\n", 50, true);
             
-            printSlow("Welcome to my shop! " + this.getName().toUpperCase() + "!", 80, true);
-            printSlow("\nAnything you could possibly need regarding weaponry you can find here.", 60, true);
+            sleep(1);
+
+            printSlow("ANYWAYS!", 40, true);
+
+            printSlow("Welcome to my shop! ", 80, true);
+
+            sleep(1);
+
+            printSlow(this.getName().toUpperCase() + "!", 50, true);
+
+            sleep(1);
+
+            printSlow("\nAnything you could possibly need regarding weaponry you can find here.", 70, true);
+
+            printSlow("I'm Jerry! At your service... ", 60, false);
+            sleepMil(500);
+
+            printSlow("for a price of course.", 60, true);
             return "";
         }
         return "error";
@@ -183,43 +208,64 @@ public class BlackSmith extends Location {
             for (int i = 0; i < 5; i++)
             {
                 printSlow(i + 1 + "- " + owner.getItem(i).getName(), 25, false);
-                printSlow("(Buy: " + owner.getItem(i).getValue() + "g)", 25, true);
+                printSlow("(Buy: " + owner.getItem(i).getValue() + "g)\n", 25, false);
             }
         }
+
+        sleep(1);
         
-        printSlow("Anything catch your eye?\n*Type 1 - 5 to select*\n*Hit enter to exit*", 30, true);
+        printSlow("\nAnything catch your eye?", 30, true);
+
+        sleepMil(500);
+
+        printSlow("\n*Type 1 - 5 to select*\n*Hit enter to exit*", 30, true);
+
         txt.nextLine();
         String input = txt.nextLine();
         
         if (input.isEmpty()) 
         {
-            printSlow("You decide to leave the shop.", 30, true);
+            printSlow("", 70, true);
             return;
         }
 
-        try {
+        try 
+        {
             int buyChoice = Integer.parseInt(input);
 
-            if (buyChoice >= 1 && buyChoice <= 5) {
-                if (player.getGold() >= owner.getItem(buyChoice - 1).getValue()) {
+            if (buyChoice >= 1 && buyChoice <= 5) 
+            {
+                if (player.getGold() >= owner.getItem(buyChoice - 1).getValue()) 
+                {
                     char confirm;
                     do {
                         printSlow("Are you sure you want to buy this? (y/n)", 50, true);
                         confirm = txt.next().charAt(0);
                         confirm = Character.toLowerCase(confirm);
 
-                        if (confirm != 'y' && confirm != 'n') {
-                            printSlow("That wasn't a valid input!", 35, true);
+                        if (confirm != 'y' && confirm != 'n') 
+                        {
+                            printSlow("That wasn't a valid input!", 50, true);
+                        }
+                        else
+                        {
+                            
                         }
                     } while (confirm != 'y' && confirm != 'n');
-                } else {
-                    printSlow("You do not have the funds for this item!", 35, true);
+                } 
+                else 
+                {
+                    printSlow("You do not have the funds for this item!\n", 20, true);
                 }
-            } else {
-                printSlow("Invalid selection! You leave the shop.", 30, true);
+            } 
+            else 
+            {
+                printSlow("Invalid selection!", 30, true);
             }
-        } catch (NumberFormatException e) {
-            printSlow("Invalid input! You leave the shop.", 30, true);
+        } 
+        catch (NumberFormatException e) 
+        {
+            printSlow("Invalid input!", 30, true);
         }
     }
     

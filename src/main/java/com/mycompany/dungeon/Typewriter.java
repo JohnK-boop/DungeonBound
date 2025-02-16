@@ -12,8 +12,7 @@ public class Typewriter {
             System.out.print(letter);
             try
             {
-                //TimeUnit.MILLISECONDS.sleep(delay);
-                TimeUnit.MILLISECONDS.sleep(0);
+                TimeUnit.MILLISECONDS.sleep(delay);
             }
             catch(InterruptedException e)
             {
@@ -27,7 +26,7 @@ public class Typewriter {
         }
         else
         {
-            System.out.print(" ");
+            System.out.print("");
         }
     }
 }

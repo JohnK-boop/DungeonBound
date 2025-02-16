@@ -5,10 +5,10 @@ package people;
  * @author johnkufta
  */
 
-import locations.Location;
 import com.mycompany.dungeon.Typewriter;
 import item.Item;
 import java.util.List;
+import locations.Location;
 
 public class NPC {
     
@@ -54,5 +54,8 @@ public class NPC {
         this.inv.addItem(item);
     }
             
-    
+    public String getName()
+    {
+        return this.name;
+    }
 }
