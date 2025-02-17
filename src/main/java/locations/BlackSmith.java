@@ -42,7 +42,7 @@ public class BlackSmith extends Location {
 
         int choice = 0;
         
-        //printSlow(getGreeting(), 70, false);
+        printSlow(0, getGreeting(), 0, 70);
         
         while (choice != 5)
         {
@@ -69,7 +69,7 @@ public class BlackSmith extends Location {
     public int welcome()
     {
         owner.speak("What can I do for ya?", 40);
-        printSlow("1) Check what's in stock\n2) Sell items\n3) Check quests\n4) Check the Smithopedia\n5) Leave the shop\n", 10, true);
+        printSlow(0, "1) Check what's in stock\n2) Sell items\n3) Check quests\n4) Check the Smithopedia\n5) Leave the shop", 2, 10);
                 
         
         int choice = txt.nextInt();
@@ -96,52 +96,52 @@ public class BlackSmith extends Location {
         {
             this.visited = true;
             System.out.println("Unknown" + ":");
-            printSlow("I dont think I've seen you here before.\n", 70, true);
+            printSlow(0, "I dont think I've seen you here before.", 1, 70);
             sleep(2);
-            printSlow("LET ME GUESS YOUR NAME!\n", 30, true);
+            printSlow(1, "LET ME GUESS YOUR NAME!", 1, 30);
             sleep(1);
-            printSlow("I'm pretty good with this kind of thing.\n", 70, true);
+            printSlow(1, "I'm pretty good with this kind of thing.", 1, 60);
             sleep(2);
             
-            printSlow("You look like you're called... ", 70, false);
+            printSlow(1, "You look like you're called... ", 0, 70);
             
            sleep(2);
              
             Faker faker = new Faker();
             String firstName = faker.name().firstName();
             
-            printSlow(firstName.toUpperCase(), 70, true);
+            printSlow(0, firstName.toUpperCase(), 0, 70);
             System.out.println();
             sleep(2);
             
             if(firstName.toLowerCase().equals(player.getName().toLowerCase()))
             {
-                printSlow("I GOT IT??", 40, true);
+                printSlow(0, "I GOT IT??", 1, 40);
                 sleep(2);
-                printSlow("Well that doesn't normally happen...", 50, true);
-                printSlow("In honor of this magnificent achivement, I want to give you a special gift!", 60, true);
+                printSlow(0, "Well that doesn't normally happen...", 1, 50);
+                printSlow(0, "In honor of this magnificent achivement, I want to give you a special gift!", 1, 60);
                 
             }
             
             else
             {
-                printSlow("NO???", 40, true);
+                printSlow(1, "NO???", 0, 40);
                 
                 sleep(2);
                 
-                printSlow("Your name..." , 70, true);
+                printSlow(1, "Your name...", 0, 70);
 
                 sleepMil(700);
 
-                printSlow("is " + player.getName() + "?", 70, false);
+                printSlow(0, "is " + player.getName() + "?", 1, 70);
                 
                 sleep(3);
                 
-                printSlow("Well it's nice to meet you " + player.getName() + "!", 35, true);
+                printSlow(0, "Well it's nice to meet you " + player.getName() + "!", 1, 35);
                 
                 sleep(1);
                 
-                printSlow("Since you're new to town, let me give you a little gift!\n", 50, true);
+                printSlow(0, "Since you're new to town, let me give you a little gift!\n", 1, 50);
 
                 sleep(2);
             }
@@ -160,26 +160,26 @@ public class BlackSmith extends Location {
 
             sleep(2);
 
-            printSlow("\nI've had that in stock for a while now,\nhopefully it can help you as you get your bearings around here.\n", 50, true);
+            printSlow(1, "I've had that in stock for a while now,\nhopefully it can help you as you get your bearings around here.", 2, 50);
             
             sleep(1);
 
-            printSlow("ANYWAYS!", 40, true);
+            printSlow(0, "ANYWAYS!", 1, 40);
 
-            printSlow("Welcome to my shop! ", 80, true);
-
-            sleep(1);
-
-            printSlow(this.getName().toUpperCase() + "!", 50, true);
+            printSlow(0, "Welcome to my shop! ", 0, 80);
 
             sleep(1);
 
-            printSlow("\nAnything you could possibly need regarding weaponry you can find here.", 70, true);
+            printSlow(0, this.getName().toUpperCase() + "!", 1, 50);
 
-            printSlow("I'm Jerry! At your service... ", 60, false);
+            sleep(1);
+
+            printSlow(1, "Anything you could possibly need regarding weaponry you can find here.", 1, 70);
+
+            printSlow(0, "I'm Jerry! At your service... ", 0, 60);
             sleepMil(500);
 
-            printSlow("for a price of course.", 60, true);
+            printSlow(0, "for a price of course.", 1, 60);
             return "";
         }
         return "error";
@@ -200,32 +200,32 @@ public class BlackSmith extends Location {
         
         if (inv.isEmpty()) 
         {
-            printSlow("Inventory is empty.", 90, true);
+            printSlow(0, "Inventory is empty.", 1, 90);
         } 
         else 
         {
-            printSlow("Inventory:\n", 25, true);
+            printSlow(0, "Inventory:", 1, 25);
             for (int i = 0; i < 5; i++)
             {
-                printSlow(i + 1 + "- " + owner.getItem(i).getName(), 25, false);
-                printSlow("(Buy: " + owner.getItem(i).getValue() + "g)\n", 25, false);
+                printSlow(0, i + 1 + "- " + owner.getItem(i).getName(),0, 25);
+                printSlow(0, "(Buy: " + owner.getItem(i).getValue() + "g)", 2, 25);
             }
         }
 
         sleep(1);
         
-        printSlow("Anything catch your eye?", 30, true);
+        printSlow(1, "Anything catch your eye?", 1, 30);
 
         sleepMil(500);
 
-        printSlow("\n*Type 1 - 5 to select*\n*Hit enter to exit*\nUser:", 30, true);
+        printSlow(1, "*Type 1 - 5 to select*\n*Hit enter to exit*\nUser:", 1, 30);
 
         txt.nextLine();
         String input = txt.nextLine();
         
         if (input.isEmpty()) 
         {
-            printSlow("", 70, true);
+            printSlow(0, "", 0, 0);
             return;
         }
 
@@ -239,13 +239,13 @@ public class BlackSmith extends Location {
                 {
                     char confirm;
                     do {
-                        printSlow("Are you sure you want to buy this? (y/n)", 50, true);
+                        printSlow(0, "Are you sure you want to buy this? (y/n)", 1, 50);
                         confirm = txt.next().charAt(0);
                         confirm = Character.toLowerCase(confirm);
 
                         if (confirm != 'y' && confirm != 'n') 
                         {
-                            printSlow("That wasn't a valid input!", 50, true);
+                            printSlow(1, "That wasn't a valid input!", 1, 50);
                         }
                         else
                         {
@@ -255,17 +255,17 @@ public class BlackSmith extends Location {
                 } 
                 else 
                 {
-                    printSlow("You do not have the funds for this item!\n", 20, true);
+                    printSlow(0, "You do not have the funds for this item!\n", 1, 20);
                 }
             } 
             else 
             {
-                printSlow("Invalid selection!", 30, true);
+                printSlow(0, "Invalid selection!", 1, 30);
             }
         } 
         catch (NumberFormatException e) 
         {
-            printSlow("Invalid input!", 30, true);
+            printSlow(0, "Invalid input!", 1, 30);
         }
     }
     

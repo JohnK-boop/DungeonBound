@@ -5,11 +5,12 @@ package people;
  * @author johnkufta
  */
 
-import com.mycompany.dungeon.Typewriter;
-import item.Item;
-import java.util.*;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+
+import com.mycompany.dungeon.Typewriter;
+
+import item.Item;
 
 public class Inventory {
     
@@ -26,7 +27,7 @@ public class Inventory {
     {
         if (this.inv.size() == maxCapacity)
         {
-            Typewriter.printSlow("Your inventory is full!", 20, true);
+            Typewriter.printSlow(0, "Your inventory is full!", 0, 20);
             return false;
         }
         else

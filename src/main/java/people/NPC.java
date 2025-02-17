@@ -31,7 +31,7 @@ public class NPC {
     public void speak(String message, int delay)
     {
         System.out.println("\n" + this.name + ":");
-        Typewriter.printSlow(message, delay, true);
+        Typewriter.printSlow(1, message, 1, delay);
     }
     
     public List<Item> getInv(int slots)
