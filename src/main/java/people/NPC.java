@@ -5,9 +5,11 @@ package people;
  * @author johnkufta
  */
 
-import com.mycompany.dungeon.Typewriter;
-import item.Item;
 import java.util.List;
+
+import com.mycompany.dungeon.Typewriter;
+
+import item.Item;
 import locations.Location;
 
 public class NPC {
@@ -28,7 +30,7 @@ public class NPC {
     
     public void speak(String message, int delay)
     {
-        System.out.println(this.name + ":");
+        System.out.println("\n" + this.name + ":");
         Typewriter.printSlow(message, delay, true);
     }
     

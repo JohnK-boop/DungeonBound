@@ -42,7 +42,7 @@ public class BlackSmith extends Location {
 
         int choice = 0;
         
-        printSlow(getGreeting(), 70, false);
+        //printSlow(getGreeting(), 70, false);
         
         while (choice != 5)
         {
@@ -69,7 +69,7 @@ public class BlackSmith extends Location {
     public int welcome()
     {
         owner.speak("What can I do for ya?", 40);
-        printSlow("1) Check what's in stock\n2) Sell items\n3) Check quests\n4) Check the Smithopedia\n5) Leave the shop", 10, true);
+        printSlow("1) Check what's in stock\n2) Sell items\n3) Check quests\n4) Check the Smithopedia\n5) Leave the shop\n", 10, true);
                 
         
         int choice = txt.nextInt();
@@ -129,11 +129,11 @@ public class BlackSmith extends Location {
                 
                 sleep(2);
                 
-                printSlow("Your name..." , 70, false);
+                printSlow("Your name..." , 70, true);
 
                 sleepMil(700);
 
-                printSlow("is " + player.getName() + "?", 70, true);
+                printSlow("is " + player.getName() + "?", 70, false);
                 
                 sleep(3);
                 
@@ -141,7 +141,7 @@ public class BlackSmith extends Location {
                 
                 sleep(1);
                 
-                printSlow("Since you're new to town, let me give you a little gift!", 50, true);
+                printSlow("Since you're new to town, let me give you a little gift!\n", 50, true);
 
                 sleep(2);
             }
@@ -204,7 +204,7 @@ public class BlackSmith extends Location {
         } 
         else 
         {
-            printSlow("Inventory:", 25, true);
+            printSlow("Inventory:\n", 25, true);
             for (int i = 0; i < 5; i++)
             {
                 printSlow(i + 1 + "- " + owner.getItem(i).getName(), 25, false);
@@ -214,11 +214,11 @@ public class BlackSmith extends Location {
 
         sleep(1);
         
-        printSlow("\nAnything catch your eye?", 30, true);
+        printSlow("Anything catch your eye?", 30, true);
 
         sleepMil(500);
 
-        printSlow("\n*Type 1 - 5 to select*\n*Hit enter to exit*", 30, true);
+        printSlow("\n*Type 1 - 5 to select*\n*Hit enter to exit*\nUser:", 30, true);
 
         txt.nextLine();
         String input = txt.nextLine();

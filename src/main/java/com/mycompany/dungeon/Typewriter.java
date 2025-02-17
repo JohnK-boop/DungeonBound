@@ -7,6 +7,15 @@ import java.util.concurrent.TimeUnit;
 public class Typewriter {
     public static void printSlow(String text, int delay, boolean nl)
     {
+        if (nl == true)
+        {
+            System.out.println("");
+        }
+        else
+        {
+            System.out.print("");
+        }
+        
         for (char letter : text.toCharArray())
         {
             System.out.print(letter);
@@ -20,13 +29,5 @@ public class Typewriter {
             }
         }
         
-        if (nl == true)
-        {
-            System.out.println("");
-        }
-        else
-        {
-            System.out.print("");
-        }
     }
 }

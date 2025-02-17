@@ -66,7 +66,7 @@ public class Player {
     
     public void announceItem(Item item)
     {
-        System.out.println("_______________________________________\n\n"
+        System.out.println("\n_______________________________________\n\n"
                          + "You have obtained a " + item.getName() + "!\n"
                          + "_______________________________________");
         this.addItem(item);
