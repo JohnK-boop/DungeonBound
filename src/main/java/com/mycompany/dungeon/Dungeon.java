@@ -16,7 +16,6 @@ public class Dungeon {
             break;
             //jOHN SUCKS MEGA BALLS
         }
-    } //Jo sucks mega balls
+    }
     
-    //new comment
 }
