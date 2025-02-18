@@ -47,7 +47,31 @@ public class Inventory {
         {
             this.inv.add(item);
         }
-        
+    }
+
+    /**
+     * Adds an Item to the first empty inventory slot
+     * @param item Item added
+     */
+    protected void addItemFree(Item item)
+    {
+        boolean fullInventory = true;
+        for (Item testEmpty : this.inv)
+        {
+            if(testEmpty instanceof EmptySlot)
+            {
+                fullInventory = false;
+            }
+        }
+        if (fullInventory)
+        {
+            Typewriter.printSlow(0, "Your inventory is full!", 1, 20);
+        }
+        else
+        {
+            int freeSlot = getFreeSlot();
+            this.inv.add(freeSlot, item);
+        }
     }
 
     /**
@@ -121,7 +145,7 @@ public class Inventory {
      * @param slotEnd End inventory index
      * @return List of Item of items at those slots
      */
-    protected List<Item> showInventory(int slotStart, int slotEnd) 
+    protected List<Item> getInventory(int slotStart, int slotEnd) 
     {
         List<Item> temp = new ArrayList<>();
         if (slotStart == 0 && slotEnd == 0)
@@ -183,7 +207,6 @@ public class Inventory {
                 return true;
             }
         }
-
         return false;
     }
 

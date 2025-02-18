@@ -22,9 +22,9 @@ public class game {
      */
     public static void run()
     {
-        Player p1 = welcome();
+        //Player p1 = welcome();
 
-        //Player p1 = new Player("John", 0);
+        Player p1 = new Player("John", 0);
         p1.changeGold(1000);
         
         Registries.giveItemIndex("jerry", Registries.getItem("rustySword"), 0);

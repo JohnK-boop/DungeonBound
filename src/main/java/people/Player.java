@@ -13,7 +13,6 @@ public class Player {
     // 0 : Knight  1 : Mage  2: Critter Rangler
     private Inventory inv = new Inventory(10);
     private int health;
-    private int strength;
     private int gold;
     
     /**
@@ -26,6 +25,7 @@ public class Player {
     {
         this.name = name;
         this.build = build;
+        this.health = 100;
         this.gold = 0;
     }
     
@@ -71,7 +71,7 @@ public class Player {
      */
     public List<Item> getInv()
     {
-        return this.inv.showInventory(0, 0);
+        return this.inv.getInventory(0, 0);
     }
     
     /**
@@ -92,6 +92,15 @@ public class Player {
     public void addItem(Item item)
     {
         this.inv.addItem(item);
+    }
+
+    /**
+     * Adds an item to the first free slot in the inventory
+     * @param item Item added
+     */
+    public void addItemFree(Item item)
+    {
+        this.inv.addItemFree(item);
     }
     
     /**
@@ -184,8 +193,8 @@ public class Player {
     }
 
     /**
-     * 
-     * @return
+     * Checks to see if player has a free slot in their inventory
+     * @return boolean Do they have an empty slot?
      */
     public boolean hasFreeSlot()
     {
@@ -217,5 +226,5 @@ public class Player {
             }
         }
     }
-    
+
 }

@@ -56,11 +56,11 @@ public class NPC {
     {
         if (slotStart != 0 && slotStart != 0)
         {
-            return this.inv.showInventory(slotStart, slotEnd);
+            return this.inv.getInventory(slotStart, slotEnd);
         }
         else
         {
-            return this.inv.showInventory(0, 0);
+            return this.inv.getInventory(0, 0);
         }
     }
 

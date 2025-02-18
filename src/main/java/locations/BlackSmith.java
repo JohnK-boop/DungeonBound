@@ -52,7 +52,7 @@ public class BlackSmith extends Location {
 
         int choice = 0;
         
-        printSlow(0, getGreeting(), 0, 70);
+        //printSlow(0, getGreeting(), 0, 70);
         
         while (choice != 5)
         {
@@ -219,12 +219,14 @@ public class BlackSmith extends Location {
         
         List<Item> inv = owner.getInv(0, 5);
         
+        //Checks to see if the NPC inventory is Empty
         if (inv.isEmpty()) 
         {
             printSlow(0, "Inventory is empty.", 1, 90);
         } 
         else 
         {
+            //Show NPC Inventory (Shop slots: 0 - 4)
             printSlow(0, "Inventory:", 1, 25);
             for (int i = 0; i < 5; i++)
             {
@@ -240,10 +242,12 @@ public class BlackSmith extends Location {
             }
         }
 
+        //Show player their gold
         printSlow(0, "   [Your Gold: " + player.getGold() + "]", 0, 25);
 
         sleepMil(700);
         
+        //Asks if they want anything
         printSlow(2, "Anything catch your eye?", 1, 30);
 
         sleepMil(500);
@@ -253,63 +257,79 @@ public class BlackSmith extends Location {
         txt.nextLine();
         String input = txt.nextLine();
         
+        //if the input is empty, skip to the end
         if (input.isEmpty()) 
         {
             printSlow(0, "", 0, 0);
             return;
         }
 
+        //checks to see if input is correct
         try 
         {
-            int buyChoice = Integer.parseInt(input);
+            int buyChoice = Integer.parseInt(input) - 1;
 
-            if (buyChoice >= 1 && buyChoice <= 5) 
+            //Checks to see if user input was in valid range of selection
+            if (buyChoice >= 0 && buyChoice <= 4) 
             {
-                if (player.getGold() >= owner.getItem(buyChoice - 1).getValue() && owner.hasItem(buyChoice - 1) && player.hasFreeSlot()) 
+                //Checks if Player has enough gold && The Owner has an Item in that slot && Player has a free slot
+                if (player.getGold() >= owner.getItem(buyChoice).getValue() && owner.hasItem(buyChoice) && player.hasFreeSlot()) 
                 {
                     char confirm;
+                    //Check to see if User has a valid confirm command
                     do {
                         printSlow(0, "Are you sure you want to buy this? (y/n)", 1, 20);
                         confirm = txt.next().charAt(0);
                         confirm = Character.toLowerCase(confirm);
 
+                        //tell user their input was invalid
                         if (confirm != 'y' && confirm != 'n') 
                         {
                             printSlow(1, "That wasn't a valid input!", 1, 50);
                         }
+                        //Take Players gold
+                        //Give them the item to closest free index
+                        //Remove the item from the NPC index
                         else
                         {
-                            player.changeGold(-(owner.getItem(buyChoice - 1).getValue()));
-                            player.announceItem(owner.getItem(buyChoice - 1));
-                            owner.removeItemIndex(buyChoice - 1);
+                            player.changeGold(-(owner.getItem(buyChoice).getValue()));
+                            player.addItemFree(owner.getItem(buyChoice));
+                            owner.removeItemIndex(buyChoice);
                         }
                     } while (confirm != 'y' && confirm != 'n');
+
+                    System.out.println(player.getInv());
                 } 
                 else 
                 {
-                    if (!owner.hasItem(buyChoice - 1))
+                    //Owner has an Empty Slot in choice
+                    if (!owner.hasItem(buyChoice))
                     {
                         printSlow(0, "You're too poor to buy his ", 0, 20);
                         sleepMil(500);
-                        printSlow(0, owner.getItem(buyChoice - 1).getName(), 0, 100);
+                        printSlow(0, owner.getItem(buyChoice).getName(), 0, 100);
                         sleep(1);
                         System.out.println();
                     }
+                    //Player doesn't have a free Slot
                     else if(!player.hasFreeSlot())
                     {
                         printSlow(0, "Your inventory is full!", 0, 20);
                     }
+                    //Player doesn't enough gold
                     else
                     {
                         printSlow(0, "You do not have the funds for this item!", 2, 20);
                     }
                 }
             } 
+            //Tells user their integer was not in range of selection
             else 
             {
                 printSlow(0, "Invalid selection!", 1, 30);
             }
         } 
+        //Tells user if input wasn't an integer
         catch (NumberFormatException e) 
         {
             printSlow(0, "Invalid input!", 1, 30);
