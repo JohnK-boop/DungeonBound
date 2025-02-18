@@ -28,10 +28,10 @@ public class Registries
         swords.put("rustySword", new Sword("Rusty Sword", 1.0, 0.2, new Effect[0], "It tastes like metal...", 50));
         swords.put("ironSword", new Sword("Iron Sword", 1.2, 0.1, new Effect[0], "Looks a little... pixelated", 150));
         
-        crystals.put("none", new Crystal("None", 0, 0, new Effect[0], "Nothing here...", 0));
-        crystals.put("white", new Crystal("White", 1, 0, new Effect[0], "There's a smudge that looks like Zach Galifianakis on it.", 50));
-        crystals.put("red", new Crystal("Red", 2, 1, new Effect[1], "Blood red...", 150));
-        crystals.put("green", new Crystal("Green", 3, 2, new Effect[2], "Greed. It beckons you closer.", 300));
+        crystals.put("noneCrystal", new Crystal("None", 0, 0, new Effect[0], "Nothing here...", 0));
+        crystals.put("whiteCrystal", new Crystal("White Crystal", 1, 0, new Effect[0], "There's a smudge that looks like Zach Galifianakis on it.", 50));
+        crystals.put("redCrystal", new Crystal("Red Crystal", 2, 1, new Effect[1], "Blood red...", 150));
+        crystals.put("greenCrystal", new Crystal("Green Crystal", 3, 2, new Effect[2], "Greed. It beckons you closer.", 300));
         
         staffs.put("stick", new Staff("Stick", 1, crystals.get("none"), "Fetch?", 20));
         staffs.put("metalBanister", new Staff("Metal Banister", 1.2, crystals.get("none"), "You know you want to use it...", 60));
@@ -142,12 +142,12 @@ public class Registries
 
     /**
      * Gives an Item to an NPC at the specified inventory index
-     * @param nameID Key of the NPC
+     * @param NPCnameID Key of the NPC
      * @param item Item (Need to either create an item or take an item from the item registry)
      * @param index Inv index you are adding the item to
      */
-    public static void giveItemIndex(String nameID, Item item, int index)
+    public static void giveItemIndex(String NPCnameID, Item item, int index)
     {
-        NPCs.get(nameID).addItemIndex(item, index);
+        NPCs.get(NPCnameID).addItemIndex(item, index);
     }
 }

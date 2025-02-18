@@ -27,7 +27,7 @@ public class Inventory {
         this.maxCapacity = maxCapacity;
         this.inv = new ArrayList<>();
 
-        for (int i = 0; i < maxCapacity; i++) {
+        for (int i = 1; i < maxCapacity; i++) {
         this.inv.add(new EmptySlot());
 }
     }

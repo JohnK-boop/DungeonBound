@@ -31,6 +31,10 @@ public class game {
         Registries.giveItemIndex("jerry", Registries.getItem("rustySword"), 1);
         Registries.giveItemIndex("jerry", Registries.getItem("rustySword"), 3);
         Registries.giveItemIndex("jerry", Registries.getItem("rustySword"), 4);
+
+        p1.addItemFree(Registries.getItem("rustySword"));
+        p1.addItemFree(Registries.getItem("stick"));
+        p1.addItemFree(Registries.getItem("redCrystal"));
         
         ((BlackSmith)Registries.getLocation("forgeries")).main(p1);
         

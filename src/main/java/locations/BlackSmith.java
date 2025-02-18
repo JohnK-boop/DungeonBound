@@ -14,6 +14,7 @@ import static com.mycompany.dungeon.Typewriter.printSlow;
 import item.EmptySlot;
 import item.Item;
 import item.Registries;
+import item.Weapon;
 import people.NPC;
 import people.Player;
 
@@ -21,11 +22,14 @@ public class BlackSmith extends Location {
     
     private static final Logger logger = LoggerFactory.getLogger(BlackSmith.class);
     private String name;
-    private String description;
+    private final String description;
     private boolean visited;
-    private NPC owner;
+    private final NPC owner;
     private Player player;
-    public static Scanner txt = new Scanner(System.in);
+    private int buyValue;
+    List<Item> playerInv;
+
+    private static Scanner txt = new Scanner(System.in);
     
     /**
      * Creates the BlackSmith Location
@@ -58,6 +62,16 @@ public class BlackSmith extends Location {
         {
             choice = welcome();
             
+            System.out.println();
+            System.out.println("Player Gold: " + player.getGold());
+            System.out.println("\n");
+            System.out.println("Player Inventory: ");
+            for(Item item : player.getInv())
+            {
+                System.out.print(item.getName() + ", ");
+            }
+            System.out.println("\n");
+
             if ((choice >= 1 && choice <= 4))
             {
                 switch (choice) {
@@ -65,8 +79,11 @@ public class BlackSmith extends Location {
                         stock();
                         break;
                     case 2:
-                        
-
+                        sell();
+                        break;
+                    default:
+                        System.out.println("Error");
+                        break;
                 }
                 
             }
@@ -79,10 +96,10 @@ public class BlackSmith extends Location {
      * Prints the shop command list
      * @return int Player choice
      */
-    public int welcome()
+    private int welcome()
     {
         owner.speak("What can I do for ya?", 40);
-        printSlow(0, "1) Check what's in stock\n2) Sell items\n3) Check quests\n4) Check the Smithopedia\n5) Leave the shop", 1, 10);
+        printSlow(0, "1) Check "+ owner.getName() + "'s Stock\n2) Sell items\n3) Check quests\n4) Check the Smithopedia\n5) Leave the shop", 1, 10);
                 
         
         int choice = txt.nextInt();
@@ -93,7 +110,7 @@ public class BlackSmith extends Location {
      * Gets a random greeting for NPC to say
      * @return String Greeting
      */
-    public String getGreeting()
+    private String getGreeting()
     {
         if(this.visited == true)
         {
@@ -214,38 +231,28 @@ public class BlackSmith extends Location {
     /**
      * Method to check NPC stock and buy an item
      */
-    public void stock()
+    private void stock()
     {
         
         List<Item> inv = owner.getInv(0, 5);
         
-        //Checks to see if the NPC inventory is Empty
-        if (inv.isEmpty()) 
+        //Show NPC Inventory (Shop slots: 0 - 4)
+        printSlow(0, "Inventory:", 1, 25);
+        for (int i = 0; i < 5; i++)
         {
-            printSlow(0, "Inventory is empty.", 1, 90);
-        } 
-        else 
-        {
-            //Show NPC Inventory (Shop slots: 0 - 4)
-            printSlow(0, "Inventory:", 1, 25);
-            for (int i = 0; i < 5; i++)
+            if(!(owner.getItem(i) instanceof EmptySlot))
             {
-                if(!(owner.getItem(i) instanceof EmptySlot))
-                {
-                    printSlow(0, i + 1 + "- " + owner.getItem(i).getName(),0, 15);
-                    printSlow(0, "(Buy: " + owner.getItem(i).getValue() + "g)", 1, 15);
-                }
-                else
-                {
-                    printSlow(0, i + 1 + "- Out of Stock",1, 25);
-                }
+                printSlow(0, i + 1 + "- " + owner.getItem(i).getName(),0, 15);
+                printSlow(0, " | (Buy: " + owner.getItem(i).getValue() + "g)", 1, 15);
+            }
+            else
+            {
+                printSlow(0, i + 1 + "- Out of Stock",1, 25);
             }
         }
 
         //Show player their gold
-        printSlow(0, "   [Your Gold: " + player.getGold() + "]", 0, 25);
-
-        sleepMil(700);
+        printSlow(0, "   [Your Gold: " + player.getGold() + "]", 0, 20);
         
         //Asks if they want anything
         printSlow(2, "Anything catch your eye?", 1, 30);
@@ -292,13 +299,17 @@ public class BlackSmith extends Location {
                         //Remove the item from the NPC index
                         else
                         {
-                            player.changeGold(-(owner.getItem(buyChoice).getValue()));
-                            player.addItemFree(owner.getItem(buyChoice));
+                            System.out.println("\n-" + owner.getItem(buyChoice).getValue() + "g");
+                            player.buyItem(owner.getItem(buyChoice));
                             owner.removeItemIndex(buyChoice);
+                            printSlow(1, "Another Happy Custommer!", 0, 50);
+                            printSlow(0, "                sucker", 2, 90);
+
                         }
                     } while (confirm != 'y' && confirm != 'n');
 
-                    System.out.println(player.getInv());
+                    //Check Player inventory to see if Item was added (Debug)
+                    //System.out.println(player.getInv());
                 } 
                 else 
                 {
@@ -336,6 +347,126 @@ public class BlackSmith extends Location {
         }
     }
     
-    
+    /**
+     * Method to sell to NPC
+     * Buys Weapons for 80% of Value
+     * Buys all else for 50% Value
+    */
+    private void sell()
+    {
+        if (player.hasItem())
+        {
+            playerInv = player.getInv();
+
+            int random = (int)(Math.random() * 3);
+
+            switch (random)
+            {
+                case 0:
+                    printSlow(1, "*Cough* You have something... ", 0, 45);
+                    sleepMil(200);
+                    printSlow(0, "FOR ME?!?!?", 0, 25);
+                    sleepMil(600);
+
+                    printSlow(2, "Well let's see what you've got!", 0, 45);
+                    sleepMil(400);
+                    break;
+                case 1:
+                    printSlow(1, "FINALLY!", 0, 85);
+                    sleepMil(100);
+                    printSlow(1, "Something to buy!", 0, 40);
+                    break;
+                case 2:
+                    printSlow(2, "A lot of fine goods here...", 0, 45);
+                    break;
+                default:
+                    System.out.println("Error when getting sell greeting");
+                    break;
+            }
+            
+
+            double buyMultiplier;
+            int i = 1;
+            for (Item item : playerInv)
+            {
+                if (!(item instanceof EmptySlot))
+                {
+                    if (item instanceof Weapon)
+                    {
+                        buyMultiplier = 0.8;
+                    }
+                    else
+                    {
+                        buyMultiplier = 0.5;
+                    }
+                    printSlow(1, (i) + "- " + item.getName() + " | (Sell: " + (int)(item.getValue() * buyMultiplier) + "g)", 0, 10);
+                    i++;
+                }
+            }
+
+            boolean selectLoop = true;
+            String input;
+
+            printSlow(1, "*Type 1 - " + (i - 1) + " to select*\n*Hit enter to exit*\nUser: ", 0, 10);
+
+            txt.nextLine();
+            input = txt.nextLine();
+
+
+            try
+            {
+                int sellChoice = Integer.parseInt(input) - 1;
+                do{
+                    if (sellChoice >= 0 && sellChoice < i)
+                    {
+                        if (playerInv.get(sellChoice) instanceof Weapon)
+                        {
+                            buyMultiplier = 0.8;
+                        }
+                        else
+                        {
+                            buyMultiplier = 0.5;
+                        }
+
+                        System.out.println("\n+" + (int)(playerInv.get(sellChoice).getValue() * buyMultiplier) + "g");
+
+                        player.sellItem(sellChoice, (int)(playerInv.get(sellChoice).getValue() * buyMultiplier));
+
+                        selectLoop = false;
+                    }
+                    else
+                    {
+                        boolean intInvalid = true;
+                        while (intInvalid == true)
+                        {
+                            printSlow(1, "Your input has to be in between 1 and " + (i - 1), 1, 15);
+
+                            txt.nextLine();
+                            input = txt.nextLine();
+
+                            try
+                            {
+                                sellChoice = Integer.parseInt(input) - 1;
+                                intInvalid = false;
+                            }
+                            catch (NumberFormatException e)
+                            {
+                                printSlow(0, "Invalid input!", 1, 30);
+                            }
+                        }
+                    }
+                }while(selectLoop == true);
+            }
+            catch(NumberFormatException e)
+            {
+                printSlow(0, "Invalid input!", 1, 30);
+            }
+
+        }
+        else
+        {
+            printSlow(1, "You don't have anything to sell!", 1, 20);
+        }
+    }
     
 }

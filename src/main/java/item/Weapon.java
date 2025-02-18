@@ -5,7 +5,7 @@ package item;
  * @author johnkufta
  */
 
-abstract class Weapon extends Item {
+public class Weapon extends Item {
     
     protected String name;
     protected String description;

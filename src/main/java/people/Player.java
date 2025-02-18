@@ -4,6 +4,7 @@ import java.util.List;
 
 import static com.mycompany.dungeon.Typewriter.printSlow;
 
+import item.EmptySlot;
 import item.Item;
 
 public class Player {
@@ -179,7 +180,7 @@ public class Player {
     {
         if(hasFreeSlot())
         {
-            this.gold =- item.getValue();
+            this.gold = this.gold - item.getValue();
             int index = getFreeSlot();
             this.addItemIndex(item, index);
             return 1;
@@ -210,6 +211,28 @@ public class Player {
     public int getFreeSlot()
     {
         return this.inv.getFreeSlot();
+    }
+
+    /**
+     * Checks to see if the Player has at least one item
+     * @return boolean Do they have an item?
+     */
+    public boolean hasItem()
+    {
+        for(Item item : inv.getInventory(0, 0))
+        {
+            if(!(item instanceof EmptySlot))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void sellItem(int index, int value)
+    {
+        changeGold(value);
+        this.inv.removeItemIndex(index);
     }
 
 //Implemented later
