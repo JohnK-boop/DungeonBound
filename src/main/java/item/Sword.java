@@ -16,6 +16,15 @@ public class Sword extends Weapon {
     private int build = 0;
     private int goldValue;
     
+    /**
+     * Create a sword Item
+     * @param name String name of sword
+     * @param damage double damage of sword
+     * @param dullness double dullness of sword
+     * @param effects Effect List Effects
+     * @param description String Description
+     * @param goldValue int Value of item
+     */
     public Sword(String name, double damage, double dullness, Effect[] effects, String description, int goldValue)
     {
         super(name, description, damage, goldValue);

@@ -15,6 +15,14 @@ public class Staff extends Weapon {
     private int build = 1;
     private int goldValue;
     
+    /**
+     * Create a staff Item
+     * @param name String name of sword
+     * @param damage double damage of sword
+     * @param crystal Crystal Crystal attached to the Staff
+     * @param description String Description
+     * @param goldValue int Value of item
+     */
     public Staff(String name, double damage, Crystal crystal, String description, int goldValue)
     {
         super(name, description, damage, goldValue);
