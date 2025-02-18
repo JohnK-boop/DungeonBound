@@ -17,7 +17,6 @@ import item.Registries;
 import people.NPC;
 import people.Player;
 
-
 public class BlackSmith extends Location {
     
     private static final Logger logger = LoggerFactory.getLogger(BlackSmith.class);
@@ -28,6 +27,12 @@ public class BlackSmith extends Location {
     private Player player;
     public static Scanner txt = new Scanner(System.in);
     
+    /**
+     * Creates the BlackSmith Location
+     * @param name Name of BlackSmith
+     * @param description Description of BlackSmith
+     * @param owner NPC of the BlackSmith
+     */
     public BlackSmith(String name, String description, NPC owner)
     {
         super(name, description);
@@ -37,6 +42,10 @@ public class BlackSmith extends Location {
         this.owner = owner;
     }
     
+    /**
+     * Main of the BlackSmith Location
+     * @param player Player passed into the BlackSmith main method
+     */
     public void main(Player player)
     {
         this.player = player;
@@ -66,17 +75,24 @@ public class BlackSmith extends Location {
         
     }
     
-    
+    /**
+     * Prints the shop command list
+     * @return int Player choice
+     */
     public int welcome()
     {
         owner.speak("What can I do for ya?", 40);
-        printSlow(0, "1) Check what's in stock\n2) Sell items\n3) Check quests\n4) Check the Smithopedia\n5) Leave the shop", 2, 10);
+        printSlow(0, "1) Check what's in stock\n2) Sell items\n3) Check quests\n4) Check the Smithopedia\n5) Leave the shop", 1, 10);
                 
         
         int choice = txt.nextInt();
         return choice;
     }
     
+    /**
+     * Gets a random greeting for NPC to say
+     * @return String Greeting
+     */
     public String getGreeting()
     {
         if(this.visited == true)
@@ -134,7 +150,7 @@ public class BlackSmith extends Location {
 
                 sleepMil(700);
 
-                printSlow(0, "is " + player.getName() + "?", 1, 70);
+                printSlow(0, " is " + player.getName() + "?", 1, 70);
                 
                 sleep(3);
                 
@@ -142,7 +158,7 @@ public class BlackSmith extends Location {
                 
                 sleep(1);
                 
-                printSlow(0, "Since you're new to town, let me give you a little gift!\n", 1, 50);
+                printSlow(0, "Since you're new to town, let me give you a little gift!", 1, 50);
 
                 sleep(2);
             }
@@ -161,7 +177,7 @@ public class BlackSmith extends Location {
 
             sleep(2);
 
-            printSlow(1, "I've had that in stock for a while now,\nhopefully it can help you as you get your bearings around here.", 2, 50);
+            printSlow(1, "I've had that in stock for a while now,\nhopefully it can help you as you get your bearings around here.", 2, 40);
             
             sleep(1);
 
@@ -177,25 +193,31 @@ public class BlackSmith extends Location {
 
             printSlow(1, "Anything you could possibly need regarding weaponry you can find here.", 1, 70);
 
-            printSlow(0, "I'm Jerry! At your service... ", 0, 60);
+            printSlow(0, "I'm Jerry! At your service... ", 0, 50);
             sleepMil(500);
 
-            printSlow(0, "for a price of course.", 1, 60);
+            printSlow(0, "for a price of course.", 1, 50);
             return "";
         }
         return "error";
     }
     
+    /**
+     * Gets the name of the Shop
+     * @return String name
+     */
     public String getName()
     {
         return this.name;
     }
     
-    
+    /**
+     * Method to check NPC stock and buy an item
+     */
     public void stock()
     {
         
-        List<Item> inv = owner.getInv(5);
+        List<Item> inv = owner.getInv(0, 5);
         
         if (inv.isEmpty()) 
         {
@@ -208,8 +230,8 @@ public class BlackSmith extends Location {
             {
                 if(!(owner.getItem(i) instanceof EmptySlot))
                 {
-                    printSlow(0, i + 1 + "- " + owner.getItem(i).getName(),0, 25);
-                    printSlow(0, "(Buy: " + owner.getItem(i).getValue() + "g)", 1, 25);
+                    printSlow(0, i + 1 + "- " + owner.getItem(i).getName(),0, 15);
+                    printSlow(0, "(Buy: " + owner.getItem(i).getValue() + "g)", 1, 15);
                 }
                 else
                 {
@@ -270,6 +292,8 @@ public class BlackSmith extends Location {
                         printSlow(0, "You're too poor to buy his ", 0, 20);
                         sleepMil(500);
                         printSlow(0, owner.getItem(buyChoice - 1).getName(), 0, 100);
+                        sleep(1);
+                        System.out.println();
                     }
                     else if(!player.hasFreeSlot())
                     {

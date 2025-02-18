@@ -5,15 +5,15 @@ package item;
  * @author johnkufta
  */
 
-import java.util.*;
+import java.util.Arrays;
 
 public class Crystal extends Item {
-    private String color;
-    private int colorID;
-    private int maxEffects;
-    private Effect[] effects;
-    private String description;
-    private int goldValue;
+    private String color; //Color of the crystal (Acts like the name)
+    private int colorID; //ID of the Crystal
+    private int maxEffects; //Integer that tells how many effects the crystal can hold
+    private Effect[] effects; //Array of effects that the crystal holds
+    private String description; //Description of the crystal
+    private int goldValue; //Buy value of the Crystal
     
     /**
      * Crystals to go on the staffs and utilize effects
@@ -26,6 +26,7 @@ public class Crystal extends Item {
      * @param maxEffects Integer that tells how many effects the crystal can hold
      * @param effects Array of effects that the crystal holds
      * @param description Description of the crystal
+     * @param goldValue Buy value of the Crystal
      */
     
     public Crystal(String color, int colorID, int maxEffects, Effect[] effects, String description, int goldValue)
@@ -40,8 +41,8 @@ public class Crystal extends Item {
     }
     
     /**
-     * Returns the color of the crystal
-     * @return name
+     * Returns the color of the crystal in a string
+     * @return color/name
      */
     
     public String getColor()
@@ -49,6 +50,15 @@ public class Crystal extends Item {
         return this.color;
     }
     
+    /**
+     * Returns the ID of the crystal
+     * 0: No Crystal (useless)
+     * 1: White (no effects)
+     * 2: Red (1 Effect)
+     * 3: Green (2 Effects)
+     * @return colorID
+     */
+
     public int getColorID()
     {
         return this.colorID;
@@ -102,6 +112,11 @@ public class Crystal extends Item {
     {
         return Arrays.copyOf(this.effects, this.effects.length);
     }
+
+    /**
+     * Returns an integer of the maximum effects a crystal can contain
+     * @return integer maxEffects
+     */
     
     public int getMaxEffects()
     {

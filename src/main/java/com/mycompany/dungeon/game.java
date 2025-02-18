@@ -11,12 +11,15 @@ import people.Player;
 @SuppressWarnings("unused")
 
 /**
- *
+ * Contains the methods behind the main game to travese the classes
  * @author johnkufta
  */
 
 public class game {
 
+    /**
+     * main run method
+     */
     public static void run()
     {
         Player p1 = welcome();
@@ -32,6 +35,12 @@ public class game {
         ((BlackSmith)Registries.getLocation("forgeries")).main(p1);
         
     }
+
+    /**
+     * Welcome message to the player
+     * Creates the player
+     * @return Player class of the player
+     */
     
     public static Player welcome()
     {

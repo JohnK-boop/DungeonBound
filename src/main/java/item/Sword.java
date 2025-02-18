@@ -1,5 +1,5 @@
 package item;
-import java.util.*;
+import java.util.Arrays;
 import java.util.HashMap;
 
 /**
@@ -94,7 +94,7 @@ public class Sword extends Weapon {
     
     public void addEffect(HashMap<String, Integer> effect)
     {
-        
+        //haven't implemented yet
     }
     
     /**
