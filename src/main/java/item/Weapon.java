@@ -5,8 +5,6 @@ package item;
  * @author johnkufta
  */
 
-import java.util.*;
-
 abstract class Weapon extends Item {
     
     protected String name;
@@ -14,6 +12,13 @@ abstract class Weapon extends Item {
     protected double damage;
     protected int goldValue;
     
+    /**
+     * Creates a Weapon
+     * @param name Name of the Weapon
+     * @param description Description of Weapon
+     * @param damage Damage of the Weapon
+     * @param goldValue Value of the Weapon
+     */
     public Weapon(String name, String description, double damage, int goldValue)
     {
         super(name, description, goldValue);
@@ -30,7 +35,6 @@ abstract class Weapon extends Item {
         System.out.println("Name: " + this.name);
         System.out.println("Damage: " + this.damage);
         System.out.println("Description: " + this.description);
-
     }
 
 }

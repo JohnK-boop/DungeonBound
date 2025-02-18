@@ -11,9 +11,10 @@ public class Typewriter {
      * @param text the Text desplayed
      * @param nlEnd How many newlines at the end of the String
      * @param delay Speed which you would like to say the text (In Millisenconds)
-     * Fast: 30 - 49
-     * Normal: 50 - 70
-     * Slow: 70 - 85
+     * Very Fast: 0 - 14 | 
+     * Fast: 15 - 39 | 
+     * Normal: 39 - 64 | 
+     * Slow: 65 - 85 | 
      * Very Slow: 85+
      */
     public static void printSlow(int nlStart, String text, int nlEnd, int delay)

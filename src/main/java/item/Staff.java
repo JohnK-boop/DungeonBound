@@ -5,7 +5,7 @@ package item;
  * @author johnkufta
  */
 
-import java.util.*;
+import java.util.Arrays;
 
 public class Staff extends Weapon {
     private String name;
@@ -80,16 +80,28 @@ public class Staff extends Weapon {
         return Arrays.copyOf(this.crystal.getEffects(), this.crystal.getEffects().length);
     }
     
+    /**
+     * Gets the name/color of the Crystal that's on the staff
+     * @return String name of Crystal
+     */
     public String getCrystalColor()
     {
         return this.crystal.getColor();
     }
     
+    /**
+     * Gets the Description of the Crystal that's on the staff
+     * @return String Description of Crystal
+     */
     public String getCrystalDescription()
     {
         return this.crystal.getDescription();
     }
     
+    /**
+     * Changes the crystal that is on the staff
+     * @param crystal Crystal (Need to grab/create crystal from the Registry)
+     */
     public void changeCrystal(Crystal crystal)
     {
         this.crystal = crystal;
