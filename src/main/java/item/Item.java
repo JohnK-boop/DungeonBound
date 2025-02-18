@@ -5,8 +5,6 @@ package item;
  * @author johnkufta
  */
 
-import java.util.*;
-
 public abstract class Item {
     
     protected String name;

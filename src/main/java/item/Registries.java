@@ -5,6 +5,7 @@ import java.util.Map;
 
 import locations.BlackSmith;
 import locations.Location;
+import locations.PotionShop;
 import locations.Village;
 import people.NPC;
 
@@ -39,9 +40,12 @@ public class Registries
         effects.put("fire", new Effect("Fire", 1, 2, 0.80));
         
         NPCs.put("jerry", new NPC("Jerry", 10));
+        //Potion shop NPC
+        NPCs.put("nancy", new NPC("Nancy", 60));
         
         locations.put("berkshire", new Village("Berkshire", "Home"));
         locations.put("forgeries", new BlackSmith("Forgeries", "For all things metal", NPCs.get("jerry")));
+        locations.put("potionShop", new PotionShop("PotionShop", "testDescription", NPCs.get("nency")));
         
         locations.get("berkshire").addConnection("Forgeries", locations.get("forgeries"));
         locations.get("forgeries").addConnection("Outside", locations.get("berkshire"));
@@ -51,20 +55,42 @@ public class Registries
         items.putAll(crystals);
     }
 
-     public static Item getItem(String name) 
-     {
+    /**
+     * Returns an item from the item registry
+     * @param name Key of item
+     * @return item
+     */
+
+    public static Item getItem(String name) 
+    {
         return items.get(name);
     }
 
+    /**
+     * Adds an Item to the item registry
+     * @param name Key of item
+     * @param item Actual item
+     */
     public static void addItem(String name, Item item) 
     {
         items.put(name, item);
     }
 
+    /**
+     * returns a sword from the sword registry
+     * @param name Key of item
+     * @return Sword item
+     */
     public static Sword getSword(String name) 
     {
         return swords.get(name);
     }
+
+    /**
+     * returns a staff from the staff registry
+     * @param name Key of item
+     * @return Staff item
+     */
 
     public static Staff getStaff(String name) 
     {
