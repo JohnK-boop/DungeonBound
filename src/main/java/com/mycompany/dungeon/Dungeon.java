@@ -15,7 +15,6 @@ public class Dungeon {
             game.run();
             break;
         }
-    } //Jo sucks mega balls
+    }
     
-    //new comment
 }
