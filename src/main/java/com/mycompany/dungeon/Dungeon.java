@@ -15,6 +15,6 @@ public class Dungeon {
             game.run();
             break;
         }
-    } //Jo sucks
+    } //Jo sucks mega balls
     
 }
