@@ -2,8 +2,11 @@ package item;
 
 import java.util.HashMap;
 import java.util.Map;
-import people.*;
-import locations.*;
+
+import locations.BlackSmith;
+import locations.Location;
+import locations.Village;
+import people.NPC;
 
 /**
  *
@@ -86,5 +89,10 @@ public class Registries
     public static void giveItem(String nameID, Item item)
     {
         NPCs.get(nameID).addItem(item);
+    }
+
+    public static void giveItemIndex(String nameID, Item item, int index)
+    {
+        NPCs.get(nameID).addItemIndex(item, index);
     }
 }

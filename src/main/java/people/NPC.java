@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.mycompany.dungeon.Typewriter;
 
+import item.EmptySlot;
 import item.Item;
 import locations.Location;
 
@@ -45,19 +46,46 @@ public class NPC {
             return this.inv.showInventory(maxCapacity);
         }
     }
+
+    public boolean hasItem(int index)
+    {
+        if(this.inv.getItem(index) instanceof EmptySlot)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
     
     public Item getItem(int index)
     {
         return this.inv.getItem(index);
     }
-    
+
     public void addItem(Item item)
     {
         this.inv.addItem(item);
+    }
+    
+    public void addItemIndex(Item item, int index)
+    {
+        this.inv.addItemIndex(item, index);
     }
             
     public String getName()
     {
         return this.name;
+    }
+
+    public void removeItem(Item item)
+    {
+        this.inv.removeItem(item);
+    }
+
+    public void removeItemIndex(int index)
+    {
+        this.inv.removeItemIndex(index);
     }
 }

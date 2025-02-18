@@ -8,6 +8,8 @@ package people;
 
 import java.util.List;
 
+import com.mycompany.dungeon.Typewriter;
+
 import item.Item;
 
 public class Player {
@@ -53,34 +55,77 @@ public class Player {
         return this.inv.showInventory(0);
     }
     
+    public void addItemIndex(Item item, int index)
+    {
+        this.inv.addItemIndex(item, index);
+    }
+
     public void addItem(Item item)
     {
         this.inv.addItem(item);
-        
     }
     
     public void removeItem(Item item)
     {
         this.inv.removeItem(item);
     }
+
+    public void removeItemIndex(int index)
+    {
+        this.inv.removeItemIndex(index);
+    }
     
     public void announceItem(Item item)
     {
-        System.out.println("\n_______________________________________\n\n"
-                         + "You have obtained a " + item.getName() + "!\n"
-                         + "_______________________________________");
-        this.addItem(item);
+        if(hasFreeSlot())
+        {
+            int index = getFreeSlot();
+            System.out.println("\n_______________________________________\n\n"
+                            + "You have obtained a " + item.getName() + "!\n"
+                             + "_______________________________________");
+            this.addItemIndex(item, index);
+        }
+        else
+        {
+            Typewriter.printSlow(0, "Your inventory is full!", 1, 20);
+        }
+        
     }
     
     public int getGold()
     {
         return this.gold;
     }
+
+    public void changeGold(int gold)
+    {
+        this.gold += gold;
+    }
     
     public void buyItem(Item item)
     {
         this.gold =- item.getValue();
-        
+    }
+
+    public boolean hasFreeSlot()
+    {
+        return this.inv.hasFreeSlot();
+    }
+
+    public int getFreeSlot()
+    {
+        return this.inv.getFreeSlot();
+    }
+
+    public void update()
+    {
+        for(int i = 0; i < this.inv.getMaxCapacity(); i++)
+        {
+            if(this.inv.getItem(i) == null)
+            {
+                
+            }
+        }
     }
     
 }

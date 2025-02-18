@@ -11,6 +11,7 @@ import static com.mycompany.dungeon.Time.sleep;
 import static com.mycompany.dungeon.Time.sleepMil;
 import static com.mycompany.dungeon.Typewriter.printSlow;
 
+import item.EmptySlot;
 import item.Item;
 import item.Registries;
 import people.NPC;
@@ -185,8 +186,6 @@ public class BlackSmith extends Location {
         return "error";
     }
     
-    
-    
     public String getName()
     {
         return this.name;
@@ -207,18 +206,27 @@ public class BlackSmith extends Location {
             printSlow(0, "Inventory:", 1, 25);
             for (int i = 0; i < 5; i++)
             {
-                printSlow(0, i + 1 + "- " + owner.getItem(i).getName(),0, 25);
-                printSlow(0, "(Buy: " + owner.getItem(i).getValue() + "g)", 2, 25);
+                if(!(owner.getItem(i) instanceof EmptySlot))
+                {
+                    printSlow(0, i + 1 + "- " + owner.getItem(i).getName(),0, 25);
+                    printSlow(0, "(Buy: " + owner.getItem(i).getValue() + "g)", 1, 25);
+                }
+                else
+                {
+                    printSlow(0, i + 1 + "- Out of Stock",1, 25);
+                }
             }
         }
 
-        sleep(1);
+        printSlow(0, "   [Your Gold: " + player.getGold() + "]", 0, 25);
+
+        sleepMil(700);
         
-        printSlow(1, "Anything catch your eye?", 1, 30);
+        printSlow(2, "Anything catch your eye?", 1, 30);
 
         sleepMil(500);
 
-        printSlow(1, "*Type 1 - 5 to select*\n*Hit enter to exit*\nUser:", 1, 30);
+        printSlow(1, "*Type 1 - 5 to select*\n*Hit enter to exit*\nUser: ", 0, 10);
 
         txt.nextLine();
         String input = txt.nextLine();
@@ -235,11 +243,11 @@ public class BlackSmith extends Location {
 
             if (buyChoice >= 1 && buyChoice <= 5) 
             {
-                if (player.getGold() >= owner.getItem(buyChoice - 1).getValue()) 
+                if (player.getGold() >= owner.getItem(buyChoice - 1).getValue() && owner.hasItem(buyChoice - 1) && player.hasFreeSlot()) 
                 {
                     char confirm;
                     do {
-                        printSlow(0, "Are you sure you want to buy this? (y/n)", 1, 50);
+                        printSlow(0, "Are you sure you want to buy this? (y/n)", 1, 20);
                         confirm = txt.next().charAt(0);
                         confirm = Character.toLowerCase(confirm);
 
@@ -249,13 +257,28 @@ public class BlackSmith extends Location {
                         }
                         else
                         {
-                            
+                            player.changeGold(-(owner.getItem(buyChoice - 1).getValue()));
+                            player.announceItem(owner.getItem(buyChoice - 1));
+                            owner.removeItemIndex(buyChoice - 1);
                         }
                     } while (confirm != 'y' && confirm != 'n');
                 } 
                 else 
                 {
-                    printSlow(0, "You do not have the funds for this item!\n", 1, 20);
+                    if (!owner.hasItem(buyChoice - 1))
+                    {
+                        printSlow(0, "You're too poor to buy his ", 0, 20);
+                        sleepMil(500);
+                        printSlow(0, owner.getItem(buyChoice - 1).getName(), 0, 100);
+                    }
+                    else if(!player.hasFreeSlot())
+                    {
+                        printSlow(0, "Your inventory is full!", 0, 20);
+                    }
+                    else
+                    {
+                        printSlow(0, "You do not have the funds for this item!", 2, 20);
+                    }
                 }
             } 
             else 

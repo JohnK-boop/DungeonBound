@@ -8,26 +8,28 @@ import static com.mycompany.dungeon.Typewriter.printSlow;
 import item.Registries;
 import locations.BlackSmith;
 import people.Player;
-
+@SuppressWarnings("unused")
 
 /**
  *
  * @author johnkufta
  */
+
 public class game {
 
     public static void run()
     {
         Player p1 = welcome();
+
+        //Player p1 = new Player("John", 0);
+        p1.changeGold(1000);
         
-        Registries.giveItem("jerry", Registries.getItem("rustySword"));
-        Registries.giveItem("jerry", Registries.getItem("rustySword"));
-        Registries.giveItem("jerry", Registries.getItem("rustySword"));
-        Registries.giveItem("jerry", Registries.getItem("rustySword"));
-        Registries.giveItem("jerry", Registries.getItem("rustySword"));
+        Registries.giveItemIndex("jerry", Registries.getItem("rustySword"), 0);
+        Registries.giveItemIndex("jerry", Registries.getItem("rustySword"), 1);
+        Registries.giveItemIndex("jerry", Registries.getItem("rustySword"), 3);
+        Registries.giveItemIndex("jerry", Registries.getItem("rustySword"), 4);
         
         ((BlackSmith)Registries.getLocation("forgeries")).main(p1);
-        
         
     }
     
@@ -63,8 +65,8 @@ public class game {
         printSlow(0, "...", 0, 180);
         
         Player p1 = new Player(name, build - 1);
-        
-        //Player p1 = new Player("John", 0);
+
+        p1.changeGold(1000);
         
         sleep(3);
         
