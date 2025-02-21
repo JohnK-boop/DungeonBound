@@ -29,6 +29,12 @@ public class Player {
         this.health = 100;
         this.gold = 0;
     }
+
+    public void speak(String msg, int delay)
+    {
+        printSlow(0, getName() + ":", 1, 10);
+        printSlow(0, "'" + msg + "'", 1, delay);
+    }
     
     /**
      * Changes the name of the Player

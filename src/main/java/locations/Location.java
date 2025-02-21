@@ -1,8 +1,13 @@
 package locations;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static com.mycompany.dungeon.Typewriter.printSlow;
+
+import people.Player;
 
 public abstract class Location {
     
@@ -20,6 +25,11 @@ public abstract class Location {
         this.name = name;
         this.description = description;
         this.connections = new HashMap<>();
+    }
+
+    public void main(Player player)
+    {
+        System.out.println("Location main error");
     }
 
     /**
@@ -42,6 +52,23 @@ public abstract class Location {
     public void addConnection(String direction, Location location)
     {
         connections.put(direction, location);
+    }
+
+    public HashMap<String, Location> getConnections()
+    {
+        return this.connections;
+    }
+
+    public Map.Entry<String, Location> getConnections(int index)
+    {
+        List<Map.Entry<String, Location>> connectionList = new ArrayList<>(this.connections.entrySet());
+
+        if (index < 0 || index >= connectionList.size()) {
+            System.out.println("Invalid index!");
+            return null;
+        }
+        
+        return connectionList.get(index);
     }
     
     /**

@@ -56,16 +56,16 @@ public class BlackSmith extends Location {
 
         int choice = 0;
         
-        //printSlow(0, getGreeting(), 0, 70);
+        printSlow(0, getGreeting(), 0, 70);
         
         while (choice != 5)
         {
             choice = welcome();
-            
             System.out.println();
             System.out.println("Player Gold: " + player.getGold());
             System.out.println("\n");
             System.out.println("Player Inventory: ");
+            
             for(Item item : player.getInv())
             {
                 System.out.print(item.getName() + ", ");
@@ -81,6 +81,8 @@ public class BlackSmith extends Location {
                     case 2:
                         sell();
                         break;
+                    case 5:
+                        Registries.getLocation("village").main(player);
                     default:
                         System.out.println("Error");
                         break;
@@ -144,13 +146,50 @@ public class BlackSmith extends Location {
             Faker faker = new Faker();
             String firstName = faker.name().firstName();
             
-            printSlow(0, firstName.toUpperCase(), 0, 70);
-            System.out.println();
+            printSlow(0, firstName.toUpperCase(), 0, 40);
             sleep(2);
             
-            if(firstName.toLowerCase().equals(player.getName().toLowerCase()))
+            if(firstName.toLowerCase().equals("jerry"))
             {
-                printSlow(0, "I GOT IT??", 1, 40);
+                printSlow(1, "Wait...", 0, 80);
+                sleep(1);
+                printSlow(0, " that's not right.", 0, 45);
+                sleep(1);
+                printSlow(1, "That's my name.", 0, 45);
+                sleepMil(1500);
+
+                if (player.getName().toLowerCase().equals("jerry"))
+                {
+                    printSlow(2, "THAT'S YOUR NAME TOO!?!?", 0, 25);
+                    sleep(1);
+                    printSlow(1, "WE NEED TO CELEBRATE THIS MONUMENTAL ACHIEVEMENT!", 0, 40);
+                    sleep(1);
+                    printSlow(1, "Here, let me get you a little something... ", 0, 40);
+                    sleep(1);
+                    printSlow(0, "on me", 0, 40);
+                    sleep(3);
+                }
+                else
+                {
+                    sleep(1);
+                    printSlow(2, "I'm sorry you had to be here for that", 0, 40);
+                    sleepMil(300);
+                    printSlow(0, "...", 0, 300);
+                    printSlow(0, " AND ON YOU FIRST TIME HERE NO LESS!", 0, 30);
+                    sleep(1);
+
+                    printSlow(1, "Here, let me get you a little something... ", 0, 40);
+                    sleep(2);
+                    printSlow(0, "Just don't tell anyone about this", 0, 40);
+                    sleep(3);
+                }
+
+
+
+            }
+            else if(firstName.toLowerCase().equals(player.getName().toLowerCase()))
+            {
+                printSlow(1, "I GOT IT??", 1, 40);
                 sleep(2);
                 printSlow(0, "Well that doesn't normally happen...", 1, 50);
                 printSlow(0, "In honor of this magnificent achivement, I want to give you a special gift!", 1, 60);

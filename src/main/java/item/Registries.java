@@ -44,14 +44,14 @@ public class Registries
         NPCs.put("nancy", new NPC("Nancy", 60));
         
         //Village
-        locations.put("berkshire", new Village("Berkshire", "Home"));
+        locations.put("village", new Village("Berkshire", "Home"));
         //BlackSmith
-        locations.put("forgeries", new BlackSmith("Forgeries", "For all things metal", NPCs.get("jerry")));
+        locations.put("blackSmith", new BlackSmith("Forgeries", "For all things metal", NPCs.get("jerry")));
         //Potion Shop
         locations.put("potionShop", new PotionShop("Potion Shop", "test Description", NPCs.get("nancy")));
         
-        locations.get("berkshire").addConnection("Forgeries", locations.get("forgeries"));
-        locations.get("forgeries").addConnection("Outside", locations.get("berkshire"));
+        locations.get("village").addConnection("Black Smith", locations.get("blackSmith"));
+        locations.get("blackSmith").addConnection("Outside", locations.get("village"));
         
         items.putAll(swords);
         items.putAll(staffs);

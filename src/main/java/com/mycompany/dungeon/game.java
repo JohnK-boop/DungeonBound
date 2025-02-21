@@ -6,7 +6,7 @@ import static com.mycompany.dungeon.Time.sleepMil;
 import static com.mycompany.dungeon.Typewriter.printSlow;
 
 import item.Registries;
-import locations.BlackSmith;
+import locations.Village;
 import people.Player;
 @SuppressWarnings("unused")
 
@@ -22,21 +22,21 @@ public class game {
      */
     public static void run()
     {
-        //Player p1 = welcome();
+        Player player = welcome();
 
-        Player p1 = new Player("John", 0);
-        p1.changeGold(1000);
+        //Player player = new Player("John", 0);
+        player.changeGold(1000);
         
         Registries.giveItemIndex("jerry", Registries.getItem("rustySword"), 0);
         Registries.giveItemIndex("jerry", Registries.getItem("rustySword"), 1);
         Registries.giveItemIndex("jerry", Registries.getItem("rustySword"), 3);
         Registries.giveItemIndex("jerry", Registries.getItem("rustySword"), 4);
 
-        p1.addItemFree(Registries.getItem("rustySword"));
-        p1.addItemFree(Registries.getItem("stick"));
-        p1.addItemFree(Registries.getItem("redCrystal"));
-        
-        ((BlackSmith)Registries.getLocation("forgeries")).main(p1);
+        player.addItemFree(Registries.getItem("rustySword"));
+        player.addItemFree(Registries.getItem("stick"));
+        player.addItemFree(Registries.getItem("redCrystal"));
+
+        ((Village)Registries.getLocation("village")).main(player);
         
     }
 
